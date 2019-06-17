@@ -11,13 +11,13 @@ class Item {
 
     renderItem() {
         return `
-        <div class="card mb-3">
-            <h3 class="card-header" data-target='#${this.name.replace(/\s/g, '')}' data-toggle='modal'>${this.name}</h3>
+        <div class="card mb-3" data-target='#${this.name.replace(/\s/g, '')}' data-toggle='modal'>
+            <h3 class="card-header" data-target='#${this.name.replace(/\s/g, '')}' data-toggle='modal'> ${this.name} </h3>
             <div class="card-body">
                 <h5 class="card-title">${this.location}</h5>
-                <h6 class="card-subtitle text-muted">${this.tags}</h6>
+                <h6 class="card-subtitle text-muted">${this.addTags()}</h6>
             </div>
-            <img style="height: 200px; width: 200px;" src="${this.images[0]}" alt="Card image">
+            <img class='item-image' style="height: 200px; width: 200px;" src="${this.images[0]}" alt="Card image">
             <div class="card-body">
                 <p class="card-text">${this.description}</p>
             </div>
@@ -45,8 +45,7 @@ class Item {
                     </div>
                     <div class="modal-body">
                         <p>${this.description}</p>
-                        <img src=${this.images[0]}>
-                        <img src=${this.images[1]}>
+                        ${this.addImages()}
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-primary">Save changes</button>
@@ -56,5 +55,13 @@ class Item {
             </div>
         </div>
         `
+    }
+
+    addImages() {
+        
+    }
+
+    addTags() {
+        
     }
 }

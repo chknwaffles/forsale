@@ -44,7 +44,6 @@ function fetchItems() {
 function initEvents() {
     contentContainer.addEventListener('click', e => {
     });
-
 }
 
 function findItem(id) {

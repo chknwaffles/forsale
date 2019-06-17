@@ -1,10 +1,12 @@
 .content-container {
     display: grid;
-    grid-template-columns: auto auto auto;
+    grid-template-columns: 300px 300px 300px 300px 300px;
 }
 
 .card mb-3 {
+    text-align: center;
     width: 200px;
+    cursor: pointer;
 }
 
 
