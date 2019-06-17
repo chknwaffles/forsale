@@ -1,3 +1,5 @@
 class ItemSerializer < ActiveModel::Serializer
-  attributes :id
+  has_many :comments
+  has_many :tags
+  attributes :id, :name, :location
 end
