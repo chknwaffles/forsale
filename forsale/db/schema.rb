@@ -25,6 +25,7 @@ ActiveRecord::Schema.define(version: 2019_06_17_152834) do
   create_table "items", force: :cascade do |t|
     t.string "name"
     t.string "location"
+    t.string "images", default: [], array: true
     t.integer "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
