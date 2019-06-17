@@ -12,7 +12,7 @@ class Item {
     renderItem() {
         return `
         <div class="card mb-3" data-target='#${this.name.replace(/\s/g, '')}' data-toggle='modal'>
-            <h3 class="card-header" data-target='#${this.name.replace(/\s/g, '')}' data-toggle='modal'> ${this.name} </h3>
+            <h3 class="card-header"> ${this.name} </h3>
             <div class="card-body">
                 <h5 class="card-title">${this.location}</h5>
                 <h6 class="card-subtitle text-muted">${this.addTags()}</h6>
@@ -62,6 +62,6 @@ class Item {
     }
 
     addTags() {
-        
+
     }
 }
