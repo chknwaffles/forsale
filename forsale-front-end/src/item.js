@@ -83,4 +83,6 @@ class Item {
         this.tags.forEach(tag => allTags += `${tag.name}`);
         return allTags;
     }
+
+    
 }
