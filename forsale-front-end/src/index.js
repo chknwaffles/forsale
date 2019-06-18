@@ -38,14 +38,9 @@ function initEvents() {
 
         debugger
     })
-
-
-  
-    
-    
   }
 signInForm.addEventListener('submit', (e) => {
-          e.preventDefault();
+          e.preventDefault(); 
           let username = e.target[0].value
           let email =  e.target[1].value
     
@@ -64,7 +59,7 @@ signInForm.addEventListener('submit', (e) => {
   
       })
 newItemForm.addEventListener('submit', e => { 
-  debugger
+
   e.preventDefault();
   let name = e.target[0].value
   let description = e.target[1].value
@@ -72,19 +67,19 @@ newItemForm.addEventListener('submit', e => {
   let images = e.target[3].value
   let price = e.target[4].value
   console.log(name, description, location, images, price)
-  // fetch(ITEMS_URL, {
-  //   method: 'POST',
-  //   headers: {
-  //       'Accept': 'application/json',
-  //       'Content-Type': 'application/json'
-  //   },
-  //   body: JSON.stringify({name, description, location, images, price, user_id: current_user.id})
-  // }).then(r => r.json())
-  // .then(item => {
-  //   ITEMS_ARRAY.push(item);
-  //   contentContainer.innerHTML += item.renderItem();
+  fetch(ITEMS_URL, {
+    method: 'POST',
+    headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({name, description, location, images, price, user_id: current_user.id})
+  }).then(r => r.json())
+  .then(item => {
+    ITEMS_ARRAY.push(item);
+    contentContainer.innerHTML += item.renderItem();
 
-  //   })
+    })
 
 })
 
