@@ -32,6 +32,9 @@
             <li class="nav-item">
             <a class="nav-link" href="#">About</a>
             </li>
+            <li class="nav-item">
+             <a class="nav-link" href="#" class="card mb-3" data-target='sign-in' data-toggle='modal'>Sign In</a>
+            </li>
         </ul>
         <form class="form-inline my-2 my-lg-0">
             <input class="form-control mr-sm-2" type="text" placeholder="Search">
@@ -39,7 +42,35 @@
         </form>
         </div>
     </nav>
+    
 </body>
+<div id="sign-in-form">
+    <div class="modal" id='sign-in' tabindex='-1' role='dialog'>
+        <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Sign In or Sign Up</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <form id="sign-in-form">
+                <div class="modal-body">
+                         <label for="username">Username:</label><br>
+                         <input name="username" id="username"><br>
+                         <label for="email">E-mail:</label><br>
+                         <input name="email" id="email">
+                         
+                        </div>
+                        <div class="modal-footer">
+                            <button type="submit" class="btn btn-primary" id="sign-in-submit">Sign In or Sign Up</button>
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        </div>
+                    </form> 
+            </div>
+        </div>
+    </div>`
+</div>
     <div class='content-container'></div>
     <script defer src="src/user.js" charset="utf-8"></script>
     <script defer src="src/item.js" charset="utf-8"></script>
