@@ -1,5 +1,6 @@
 const ITEMS_URL = 'http://localhost:3000/api/v1/items';
 const USERS_URL = 'http://localhost:3000/api/v1/users';
+const COMMENTS_URL = 'http://localhost:3000/api/v1/comments';
 let contentContainer = document.getElementsByClassName('jumbotron')[0];
 let navBar = document.getElementById('nav-bar');
 let signInForm = document.getElementById('sign-in-form');
@@ -68,13 +69,35 @@ function initEvents() {
         if (e.target.id === 'add-comment') {
             if (current_user !== '') {
                 //logged in so let's show a form to add comment
-                debugger
-                let comment = new Comment();
-                comment.showForm();
+                e.target.parentElement.previousElementSibling.style.display = "";
                 //possibly change the button to submit comment
+                e.target.innerText = 'Submit'
+                setTimeout(() => {
+                    e.target.id = 'submit-comment';
+                }, 5000);
             } else {
-
+                //alert to log in to add a comment
             }
+        }
+
+        if(e.target.id === 'submit-comment') {
+            debugger
+            let comment = e.target.parentElement.previousElementSibling.firstElementChild[0].value;
+            let item_id = e.target.offsetParent.parentElement.parentElement.id.split('-')[2];
+            fetch(COMMENTS_URL, {
+                method: 'POST',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ body: comment, item_id: item_id, user_id: current_user.id,  })
+            })
+            .then(r => r.json())
+            .then(comment => {
+                //render on dom
+                
+            })
+            .catch(console.log(err))
         }
     })
 }
