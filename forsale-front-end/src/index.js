@@ -21,34 +21,6 @@ function fetchItems() {
         })
     })
 }
-
-
-
-    navBar.addEventListener('click', e => {
-      if(e.target.innerText === "SIGN IN"){
-        $('#sign-in').modal('show');
-      }
-    })
-
-    signInForm.addEventListener('submit', (e) => {
-      e.preventDefault();
-      
-      let username = e.target[0].value
-      let email =  e.target[1].value
-
-      fetch(USERS_URL, {method: 'POST',
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({username, email})
-    }).then(r => r.json())
-    .then(user => {
-      current_user = user.username
-    })
-    
-      
-    })
     
 //infinite scroll
 function initEvents() {
@@ -61,6 +33,31 @@ function initEvents() {
         let allCards = document.querySelectorAll('card mb-3');
 
         debugger
+    })
+
+    navBar.addEventListener('click', e => {
+        if(e.target.innerText === "SIGN IN"){
+          $('#sign-in').modal('show');
+        }
+    })
+  
+    signInForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        
+        let username = e.target[0].value
+        let email =  e.target[1].value
+  
+        fetch(USERS_URL, {
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({username, email})
+        }).then(r => r.json())
+        .then(user => {
+            current_user = user.username
+        })
     })
 }
 
