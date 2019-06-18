@@ -50,20 +50,26 @@ class Item {
                                             <div class="card-body">
                                                 <p class="card-text">${this.description}</p>
                                             </div>
+                                            <div class="card-body">
+                                                <p> Fake Comment </p>
+                                                <p> Fake COmment 2 </p>
+                                                ${this.addComments()}
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                             <div class='row'>
                                 <div class="col-md-4 ml-auto">
-                                    <div class="card-body">
-                                        <p> Fake Comment </p>
-                                        <p> Fake COmment 2 </p>
-                                        ${this.addComments()}
-                                    </div>
+                                    
                                 </div>    
                             </div>
                         </div>
+                    </div>
+                    <div class='add-comment-form' style='display:none' placeholder='Comment here'>
+                    <form>
+                        <textarea class="form-control" id="exampleTextarea" rows="3"></textarea>
+                    </form>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-primary btn-sm" id='add-comment'>Add comment</button>

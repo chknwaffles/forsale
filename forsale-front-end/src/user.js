@@ -8,14 +8,16 @@ class User {
     success() {
         let toast = document.createElement('div');
         toast.innerHTML = `
-        <div role="status" aria-live="polite" class="toast" data-autohide="false">
-            <div class="toast-header">
-                <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="toast-body">
-                Welcome ${this.username}! You have successfully logged in.
+        <div class='position-relative d-flex align-content-center'>
+            <div role="status" aria-live="polite" class="toast" data-autohide="false">
+                <div class="toast-header">
+                    <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="toast-body">
+                    Welcome ${this.username}! You have successfully logged in.
+                </div>
             </div>
         </div>
         `
