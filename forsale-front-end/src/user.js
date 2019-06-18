@@ -3,6 +3,12 @@ class User {
         this.username = username;
         this.email = email;
     }
+   
+        
+
+
+   
+
 
     
 }
