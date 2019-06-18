@@ -1,29 +1,7 @@
-let contentContainer = document.getElementsByClassName('content-container')[0];
+let contentContainer = document.getElementsByClassName('jumbotron')[0];
 let navBar =document.getElementById('nav-bar');
 const ITEMS_URL = 'http://localhost:3000/api/v1/items';
 let ITEMS_ARRAY = [];
-
-// let routes = {
-//     '/': homepage,
-//     '/index.html': homepage,
-//   };
-
-
-
- 
-  
-// navBar.addEventListener('click', (e) => {
-//     console.log(e.target.innerText)
-//     if(e.target.dataset.id === "home"){
-    
-//         navItemClick('/')
-//     }
-// })
-
-//   function navItemClick(path){
-//     // window.history.pushState({}, '', window.location.origin + path);
-//     contentDiv.innerHTML = routes[path];
-//   }
 
 function init() {
     fetchItems();
@@ -41,9 +19,18 @@ function fetchItems() {
     })
 }
 
+//infinite scroll
 function initEvents() {
-    contentContainer.addEventListener('click', e => {
+    contentContainer.addEventListener('scroll', e => {
     });
+
+    document.getElementsByClassName('form-control mr-sm-2')[0].addEventListener('input', e => {
+        console.log('wtf')
+        debugger
+        let allCards = document.querySelectorAll('card mb-3');
+
+        debugger
+    })
 }
 
 function findItem(id) {

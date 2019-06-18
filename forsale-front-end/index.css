@@ -1,6 +1,11 @@
-.content-container {
+.jumbotron {
     display: grid;
-    grid-template-columns: 300px 300px 300px 300px 300px;
+    grid-template-columns: repeat(4, 300px [col-start]);
+    grid-column-gap: 20px; 
+    justify-content: center;
+    /* for infinite scroll */
+    height: 600px;
+    overflow: auto;
 }
 
 .card mb-3 {
@@ -9,4 +14,7 @@
     cursor: pointer;
 }
 
-
+.img-item {
+    width: 300px;
+    justify-self: center;
+}
