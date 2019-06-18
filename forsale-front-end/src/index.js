@@ -29,11 +29,14 @@ function initEvents() {
     });
 
     document.getElementsByClassName('form-control mr-sm-2')[0].addEventListener('input', e => {
-        console.log('wtf')
-        debugger
-        let allCards = document.querySelectorAll('card mb-3');
+        let allCards = document.getElementsByClassName('card mb-3');
 
-        debugger
+        for(let card of allCards) {
+            if (card.getElementsByTagName('span')[0].innerText.includes(e.target.value))
+                card.style.display = '';
+            else
+                card.style.display = 'none';
+        }
     })
 
     navBar.addEventListener('click', e => {
@@ -65,7 +68,6 @@ function initEvents() {
 function findItem(id) {
     return ITEMS_ARRAY.find(item => item.id === +id);
 }
-
 
 init();
 
