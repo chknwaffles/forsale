@@ -1,10 +1,10 @@
-let contentContainer = document.getElementsByClassName('jumbotron')[0];
-let navBar =document.getElementById('nav-bar');
-let signInForm = document.getElementById('sign-in-form')
 const ITEMS_URL = 'http://localhost:3000/api/v1/items';
 const USERS_URL = 'http://localhost:3000/api/v1/users';
+let contentContainer = document.getElementsByClassName('jumbotron')[0];
+let navBar = document.getElementById('nav-bar');
+let signInForm = document.getElementById('sign-in-form');
 let ITEMS_ARRAY = [];
-var current_user
+let current_user = '';
 
 function init() {
     fetchItems();
@@ -13,7 +13,7 @@ function init() {
 
 function fetchItems() {
     fetch(ITEMS_URL)
-    .then(resp => resp.json())
+    .then(r => r.json())
     .then(items => {
         items.forEach(item => {
             let newItem = new Item(item);
@@ -39,15 +39,9 @@ function initEvents() {
         }
     })
 
-    navBar.addEventListener('click', e => {
-        if(e.target.innerText === "SIGN IN"){
-          $('#sign-in').modal('show');
-        }
-    })
-  
     signInForm.addEventListener('submit', (e) => {
         e.preventDefault();
-        
+
         let username = e.target[0].value
         let email =  e.target[1].value
   
@@ -60,8 +54,28 @@ function initEvents() {
             body: JSON.stringify({username, email})
         }).then(r => r.json())
         .then(user => {
-            current_user = user.username
+            current_user = new User(user);
+            navBar.getElementsByClassName('navbar-nav mr-auto')[0].children[3].style.display = 'none';
+            //prepend the success alert to the top
+            document.querySelector('body').prepend(current_user.success())
+            //unfortunately have to use jquery to close the login modal and show toast
+            $('#sign-in').modal('hide');
+            $('.toast').toast('show');
         })
+    })
+
+    contentContainer.addEventListener('click', e => {
+        if (e.target.id === 'add-comment') {
+            if (current_user !== '') {
+                //logged in so let's show a form to add comment
+                debugger
+                let comment = new Comment();
+                comment.showForm();
+                //possibly change the button to submit comment
+            } else {
+
+            }
+        }
     })
 }
 
