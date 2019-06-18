@@ -14,7 +14,21 @@
     cursor: pointer;
 }
 
-.img-item {
-    width: 300px;
-    justify-self: center;
+.item-image {
+    height: 200px; 
+    width: 100%;
 }
+
+.img-item {
+    width: 100%;
+}
+
+.form-group {
+    display: grid; 
+    justify-content: center; 
+    grid-template-rows: 25%
+}
+
+.alert {
+    text-align: center;  
+ }

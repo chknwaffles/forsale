@@ -15,19 +15,20 @@ class Item {
         <div class="card mb-3" data-target='#modal-item-${this.id}' data-toggle='modal'>
             <h3 class="card-header"> ${this.name} </h3>
             <div class="card-body">
-                <h5 class="card-title">${this.location}</h5>
+                <h5 class="card-title">From ${this.user.username}</h5>
+                <h6 class="card-subtitle text-muted">${this.location}</h6>
                 <span class="badge badge-pill badge-dark">${this.addTags()}</span>
             </div>
-            <img class='item-image' style="height: 200px; width: 200px;" src="${this.images[0]}" alt="Card image">
+            <img class='item-image' src="${this.images[0]}" alt="Card image">
             <div class="card-footer text-muted">
-                2 days ago
+                Add timestamp
             </div>
         </div>
-        ${this.renderItemOnClick()}
+        ${this.renderModalItem()}
         `
     }
 
-    renderItemOnClick() {
+    renderModalItem() {
         return `
         <div class="modal fade" id='modal-item-${this.id}' tabindex='-1' role='dialog'>
             <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
@@ -56,14 +57,16 @@ class Item {
                             <div class='row'>
                                 <div class="col-md-4 ml-auto">
                                     <div class="card-body">
-                                        <p> ${this.comments} </p>
+                                        <p> Fake Comment </p>
+                                        <p> Fake COmment 2 </p>
+                                        ${this.addComments()}
                                     </div>
                                 </div>    
                             </div>
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-primary btn-sm">Add comment</button>
+                        <button type="button" class="btn btn-primary btn-sm" id='add-comment'>Add comment</button>
                         <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Close</button>
                     </div>
                 </div>
@@ -82,5 +85,11 @@ class Item {
         let allTags = '';
         this.tags.forEach(tag => allTags += `${tag.name}`);
         return allTags;
+    }
+
+    addComments() {
+        let allComments = '';
+        this.comments.forEach(comment => allComments += `<p> ${comment} </p>`);
+        return allComments;
     }
 }
