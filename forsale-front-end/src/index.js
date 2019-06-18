@@ -8,6 +8,7 @@ var current_user
 
 function init() {
     fetchItems();
+    initEvents();
 }
 
 function fetchItems() {
