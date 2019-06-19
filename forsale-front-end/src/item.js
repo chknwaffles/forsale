@@ -35,6 +35,7 @@ class Item {
                 <div class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title">${this.name}</h5>
+                        ${this.deleteButton()}
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
@@ -70,6 +71,7 @@ class Item {
                     </form>
                     </div>
                     <div class="modal-footer">
+
                         <button type="button" class="btn btn-primary btn-sm" id='add-comment'>Add comment</button>
                         <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Close</button>
                     </div>
@@ -95,5 +97,17 @@ class Item {
         let allComments = '';
         this.comments.forEach(comment => allComments += `<li> ${comment} </li>`);
         return allComments;
+    }
+    
+    deleteButton(){
+        console.log("this", this)
+        console.log("current_user", current_user.id)
+        console.log("this.user.id", this.user.id)
+
+        if(current_user.id === this.user.id){
+            console.log("match")
+            return `<button type="button" class="btn btn-primary btn-sm" data-id="${this.id}-delete" id='delete-item'>Delete Item</button>`
+        }
+        return ``
     }
 }

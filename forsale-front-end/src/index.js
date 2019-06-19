@@ -64,6 +64,11 @@ function initEvents() {
             $('.toast').toast('show');
             //show add page and user show page to navbar
             current_user.loggedIn(navBar.getElementsByClassName('navbar-nav mr-auto')[0]);
+            contentContainer.innerHTML = ""
+            ITEMS_ARRAY.forEach(item => {
+              
+              contentContainer.innerHTML += item.renderItem();
+          })
         })
     })
 
