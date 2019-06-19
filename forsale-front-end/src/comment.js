@@ -8,7 +8,7 @@ class Comment {
 
     renderComment() {
         return `
-            <li> ${this.body} - ${this.user.username} </li>
+            <li id='${this.id}'> ${this.body} - ${this.user.username} <button type='button' id='delete-comment'>x</button></li>
         `
     }
 }

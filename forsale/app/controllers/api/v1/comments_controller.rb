@@ -8,4 +8,10 @@ class Api::V1::CommentsController < ApplicationController
         @comment = Comment.create(body: params['body'], item_id: params['item_id'].to_i, user_id: params['user_id'].to_i)
         render json: @comment
     end
+
+    def destroy
+        @comments = Comment.all
+        Comment.destroy(params[:id])
+        render json: @comments
+    end
 end
