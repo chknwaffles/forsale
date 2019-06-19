@@ -32,7 +32,6 @@ ActiveRecord::Schema.define(version: 2019_06_19_171947) do
     t.integer "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "price"
   end
 
   create_table "items_tags", id: false, force: :cascade do |t|
