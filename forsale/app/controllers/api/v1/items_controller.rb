@@ -6,10 +6,9 @@ class Api::V1::ItemsController < ApplicationController
 
     def create
         @item = Item.create(item_params);
-        @item.images.push(params[:images])
         @tag = Tag.find_or_create_by(name: params["tag"])
         @item.tags.push(@tag)
-        byebug
+  
 
         render json: @item
     end

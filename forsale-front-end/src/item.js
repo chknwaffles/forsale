@@ -11,6 +11,7 @@ class Item {
     }
 
     renderItem() {
+        debugger
         return `
         <div class="card mb-3" data-target='#modal-item-${this.id}' data-toggle='modal'>
             <h3 class="card-header"> ${this.name} </h3>
@@ -19,7 +20,7 @@ class Item {
                 <h6 class="card-subtitle text-muted">${this.location}</h6>
                 <span class="badge badge-pill badge-dark">${this.addTags()}</span>
             </div>
-            <img class='item-image' src="${this.images[0]}" alt="Card image">
+            <img class='item-image' src="${this.images}" alt="Card image">
             <div class="card-footer text-muted">
                 Add timestamp
             </div>
@@ -46,7 +47,7 @@ class Item {
                                     <span class="badge badge-dark">${this.addTags()}</span>
                                     <div class="row">
                                         <div class="col-8 col-sm-6">
-                                            ${this.addImages()}
+                                         <img class='img-item' src=${this.images}>
                                             <div class="card-body">
                                                 <p class="card-text">${this.description}</p>
                                             </div>
@@ -81,11 +82,11 @@ class Item {
         `
     }
 
-    addImages() {
-        let allImages = '';
-        this.images.forEach(image => allImages += `<img class='img-item' src='${image}'> `)
-            return allImages;
-    }
+    // addImages() {
+    //     let allImages = '';
+    //     this.images.forEach(image => allImages += `<img class='img-item' src='${image}'> `)
+    //         return allImages;
+    // }
 
     addTags() {
         let allTags = '';

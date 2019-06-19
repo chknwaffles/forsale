@@ -17,11 +17,13 @@ function fetchItems() {
     fetch(ITEMS_URL)
     .then(r => r.json())
     .then(items => {
+    
         items.forEach(item => {
             let newItem = new Item(item);
             contentContainer.innerHTML += newItem.renderItem();
             ITEMS_ARRAY.push(newItem);
         })
+
     })
 }
     
@@ -89,8 +91,9 @@ function initEvents() {
       .then(item => {
         let newItem = new Item(item);
             contentContainer.innerHTML += newItem.renderItem();
+            debugger
             ITEMS_ARRAY.push(newItem);
-    
+            $('#new-item').modal('toggle');
         })
     
     })
