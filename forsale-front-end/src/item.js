@@ -11,7 +11,6 @@ class Item {
     }
 
     renderItem() {
-        debugger
         return `
         <div class="card mb-3" data-target='#modal-item-${this.id}' data-toggle='modal'>
             <h3 class="card-header"> ${this.name} </h3>

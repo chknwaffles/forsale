@@ -19,14 +19,14 @@ tag4 = Tag.find_or_create_by(name: 'books')
 
 allTags = [tag1, tag2, tag3, tag4]
 
-guitar = Item.find_or_create_by(name: 'Guitar', description: 'a guitar dude', location: '11 Broadway New York, NY 1004', images: ['https://cdn.pixabay.com/photo/2017/11/07/00/18/guitar-2925274__340.jpg', 'https://stuff.fendergarage.com/images/9/B/Z/fcwd-taxonomy-electric-guitar-custom-shop@2x.png'], user_id: user1.id)
-mouse = Item.find_or_create_by(name: 'Gaming mouse', description: 'some mouse', location: '11 Broadway New York, NY 1004', images: ['https://icdn6.digitaltrends.com/image/logitech-g502-lightspeed-press-image-375x375.jpg', 'https://images.idgesg.net/images/article/2019/05/g502_lightspeed_3-100795747-large.jpg'], user_id: user2.id)
-guitar2 = Item.find_or_create_by(name: 'Better Guitar', description: 'better guitar than that other one', location: '11 Broadway New York, NY 1004', images: ['https://cdn.pixabay.com/photo/2013/07/12/15/06/acoustic-guitar-149427_960_720.png', 'https://cdn.pixabay.com/photo/2015/07/13/02/52/girl-842719_960_720.jpg'], user_id: user3.id)
-ps4 = Item.find_or_create_by(name: 'PS4', description: 'a ps4 my guy what else u need', location: '11 Broadway New York, NY 1004', images: ['https://media.playstation.com/is/image/SCEA/playstation-4-slim-vertical-product-shot-01-us-07sep16?$native_t$', 'https://media.playstation.com/is/image/SCEA/playstation-accessories-ps4-slim-two-column-02-us-07feb17?$facebook$'], user_id: user4.id)
+guitar = Item.find_or_create_by(name: 'Guitar', description: 'a guitar dude', location: '11 Broadway New York, NY 1004', images: 'https://cdn.pixabay.com/photo/2017/11/07/00/18/guitar-2925274__340.jpg', user_id: user1.id)
+mouse = Item.find_or_create_by(name: 'Gaming mouse', description: 'some mouse', location: '11 Broadway New York, NY 1004', images: 'https://icdn6.digitaltrends.com/image/logitech-g502-lightspeed-press-image-375x375.jpg', user_id: user2.id)
+guitar2 = Item.find_or_create_by(name: 'Better Guitar', description: 'better guitar than that other one', location: '11 Broadway New York, NY 1004', images: 'https://cdn.pixabay.com/photo/2013/07/12/15/06/acoustic-guitar-149427_960_720.png', user_id: user3.id)
+ps4 = Item.find_or_create_by(name: 'PS4', description: 'a ps4 my guy what else u need', location: '11 Broadway New York, NY 1004', images: 'https://media.playstation.com/is/image/SCEA/playstation-4-slim-vertical-product-shot-01-us-07sep16?$native_t$', user_id: user4.id)
 
 newItem = nil;
 10.times do 
-    newItem = Item.find_or_create_by(name: Faker::Book.title, description: "#{Faker::Book.author}", location: '11 Broadway New York, NY 1004', images: ['https://images.freeimages.com/images/large-previews/1a6/book-1421401.jpg'], user_id: allUsers.sample.id);
+    newItem = Item.find_or_create_by(name: Faker::Book.title, description: "#{Faker::Book.author}", location: '11 Broadway New York, NY 1004', images: 'https://images.freeimages.com/images/large-previews/1a6/book-1421401.jpg', user_id: allUsers.sample.id);
     allTags.sample.items << newItem
 end
 
