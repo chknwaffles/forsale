@@ -1,10 +1,14 @@
+body {
+    height: 100%;
+}
+
 .jumbotron {
     display: grid;
     grid-template-columns: repeat(4, 300px [col-start]);
     grid-column-gap: 20px; 
     justify-content: center;
+    /* margin-top: 25px; */
     /* for infinite scroll */
-    height: 600px;
     overflow: auto;
 }
 
@@ -29,6 +33,6 @@
     grid-template-rows: 25%
 }
 
-.alert {
-    text-align: center;  
- }
+.toast {
+    z-index: 9999999999;
+}

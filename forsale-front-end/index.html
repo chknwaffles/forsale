@@ -12,7 +12,7 @@
 </head>
 <body>
     <link href="https://stackpath.bootstrapcdn.com/bootswatch/4.3.1/lux/bootstrap.min.css" rel="stylesheet" integrity="sha384-hVpXlpdRmJ+uXGwD5W6HZMnR9ENcKVRn855pPbuI/mwPIEKAuKgTKgGksVGmlAvt" crossorigin="anonymous">
-    <nav id="nav-bar" class="navbar navbar-expand-lg navbar-dark bg-primary">
+    <nav id="nav-bar" class="navbar sticky-top navbar-expand-lg navbar-dark bg-primary">
         <a class="navbar-brand" href="#">forSale</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -21,16 +21,10 @@
         <div class="collapse navbar-collapse" id="navbarColor01">
         <ul class="navbar-nav mr-auto">
             <li class="nav-item active">
-            <a class="nav-link" data-id="home" href="#">Home <span class="sr-only">(current)</span></a>
+                <a class="nav-link" href="#" class="card mb-3" data-target='#sign-in' data-toggle='modal'>Sign In</a>
             </li>
-            <li class="nav-item">
+            <li class="nav-item" style='display:none'>
             <a class="nav-link" href="#">Add Items</a>
-            </li>
-            <li class="nav-item">
-            <a class="nav-link" href="#">User Page</a>
-            </li>
-            <li class="nav-item">
-             <a class="nav-link" href="#" class="card mb-3" data-target='#sign-in' data-toggle='modal'>Sign In</a>
             </li>
         </ul>
         <form class="form-inline my-2 my-lg-0">
@@ -38,35 +32,32 @@
         </form>
         </div>
     </nav>
-    
-</body>
-    <div id="login-container">
-        <div class="modal" id='sign-in' tabindex='-1' role='dialog'>
-            <div class="modal-dialog modal-sm modal-dialog-centered" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title">Sign In or Sign Up</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <form id="sign-in-form">
-                        <div class="form-group">
-                            <label for="username">Username:</label>
-                            <input name="username" id="username">
-                            <label for="email">E-mail:</label>
-                            <input name="email" id="email">    
-                        </div>
-                        <div class="modal-footer" style='justify-content: center'>
-                            <button type="submit" class="btn btn-primary btn-sm">Sign In or Sign Up</button>
-                            <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Close</button>
-                        </div>
-                    </form> 
-                </div>
-            </div>
-        </div>`
-    </div>
     <div class="jumbotron jumbotron-fluid"> </div>
+    <div class="modal" id='sign-in' tabindex='-1' role='dialog'>
+        <div class="modal-dialog modal-sm modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Sign In or Sign Up</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <form id="sign-in-form">
+                    <div class="form-group">
+                        <label for="username">Username:</label>
+                        <input name="username" id="username">
+                        <label for="email">E-mail:</label>
+                        <input name="email" id="email">    
+                    </div>
+                    <div class="modal-footer" style='justify-content: center'>
+                        <button type="submit" class="btn btn-primary btn-sm">Sign In or Sign Up</button>
+                        <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Close</button>
+                    </div>
+                </form> 
+            </div>
+        </div>
+    </div>
+</body>
     <script defer src="src/user.js" charset="utf-8"></script>
     <script defer src="src/item.js" charset="utf-8"></script>
     <script defer src="src/tag.js" charset="utf-8"></script>
