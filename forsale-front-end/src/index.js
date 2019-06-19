@@ -122,20 +122,20 @@ function findItem(id) {
 function loadMoreItems(e) {
     //only load 4 more items at a time
     let count = 7;
+    ITEMS_ARRAY.forEach(item => {
+        if (item.id > ITEMS_LOADED && count >= 0) {
+            let newItem = new Item(item);
+            contentContainer.innerHTML += newItem.renderItem();
+    
+            ITEMS_LOADED++;
+            count--;
+        }
+    })
+    
     if (ITEMS_LOADED === ITEMS_ARRAY.length) {
         e.target.innerText = 'End of List';
         e.target.disabled = true;
-    } else {
-        ITEMS_ARRAY.forEach(item => {
-            if (item.id > ITEMS_LOADED && count >= 0) {
-                let newItem = new Item(item);
-                contentContainer.innerHTML += newItem.renderItem();
-      
-                ITEMS_LOADED++;
-                count--;
-            }
-        })
-    }
+    } 
 }
 
 function showToTheTopButton() {
