@@ -17,7 +17,6 @@ function fetchItems() {
     fetch(ITEMS_URL)
     .then(r => r.json())
     .then(items => {
-    
         items.forEach(item => {
             let newItem = new Item(item);
             contentContainer.innerHTML += newItem.renderItem();
@@ -114,11 +113,10 @@ function initEvents() {
                 e.target.innerText = 'Submit'
                 setTimeout(() => {
                     e.target.id = 'submit-comment';
-                }, 3000);
+                }, 500);
             } else {
                 //alert to log in to add a comment
                 document.querySelector('body').prepend(current_user.toastMsg('You need to login to comment!'))
-                console.log('TOAST PLS')
                 $('.toast').toast('show');
             }
         }
@@ -132,17 +130,24 @@ function initEvents() {
                     'Accept': 'application/json',
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify({ body: comment, item_id: item_id, user_id: current_user.id,  })
+                body: JSON.stringify({ body: comment, item_id: item_id, user_id: current_user.id })
             })
             .then(r => r.json())
             .then(comment => {
                 //render on dom and change submit button to add comment and get rid of textfield
+                let newComment = new Comment(comment);
+                e.target.offsetParent.getElementsByClassName('list-group')[0].innerHTML += newComment.renderComment();
 
+                //set button to add comment and hide text field
+                let commentForm = e.target.parentElement.previousElementSibling
+                commentForm.style.display = 'none';
+                commentForm.firstElementChild.reset();
+                e.target.innerText = 'Add Comment'
                 setTimeout(() => {
                     e.target.id = 'add-comment';
-                }, 3000);
+                }, 500);
             })
-            .catch(console.log(err))
+            .catch(console.log())
         }
     })
 }
@@ -152,4 +157,3 @@ function findItem(id) {
 }
 
 init();
-

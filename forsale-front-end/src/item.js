@@ -51,7 +51,7 @@ class Item {
                                             <div class="card-body">
                                                 <p class="card-text">${this.description}</p>
                                             </div>
-                                            <div class="card-body">
+                                            <div class="card-body" id='comment-container'>
                                                 <ul class="list-group"> ${this.addComments()} </ul>
                                             </div>
                                         </div>
@@ -67,7 +67,7 @@ class Item {
                     </div>
                     <div class='add-comment-form' style='display:none' placeholder='Comment here'>
                     <form>
-                        <textarea class="form-control" id="exampleTextarea" rows="3"></textarea>
+                        <textarea class="form-control" id="exampleTextarea" rows="3" placeholder='Add comment here'></textarea>
                     </form>
                     </div>
                     <div class="modal-footer">
@@ -95,7 +95,7 @@ class Item {
 
     addComments() {
         let allComments = '';
-        this.comments.forEach(comment => allComments += `<li> ${comment} </li>`);
+        this.comments.forEach(comment => allComments += `<li> ${comment.body} - ${comment.user.username} </li>`);
         return allComments;
     }
     
