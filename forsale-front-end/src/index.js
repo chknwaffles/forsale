@@ -1,9 +1,10 @@
+let contentContainer = document.getElementsByClassName('jumbotron')[0];
+let navBar =document.getElementById('nav-bar');
+let signInForm = document.getElementById('sign-in-form')
+let newItemForm = document.getElementById('new-item-card')
 const ITEMS_URL = 'http://localhost:3000/api/v1/items';
 const USERS_URL = 'http://localhost:3000/api/v1/users';
 const COMMENTS_URL = 'http://localhost:3000/api/v1/comments';
-let contentContainer = document.getElementsByClassName('jumbotron')[0];
-let navBar = document.getElementById('nav-bar');
-let signInForm = document.getElementById('sign-in-form');
 let ITEMS_ARRAY = [];
 let current_user = new User({});
 
@@ -16,11 +17,13 @@ function fetchItems() {
     fetch(ITEMS_URL)
     .then(r => r.json())
     .then(items => {
+    
         items.forEach(item => {
             let newItem = new Item(item);
             contentContainer.innerHTML += newItem.renderItem();
             ITEMS_ARRAY.push(newItem);
         })
+
     })
 }
 
@@ -62,6 +65,36 @@ function initEvents() {
             //show add page and user show page to navbar
             current_user.loggedIn(navBar.getElementsByClassName('navbar-nav mr-auto')[0]);
         })
+    })
+
+    newItemForm.addEventListener('submit', e => { 
+
+      e.preventDefault();
+      let name = e.target[0].value
+      let description = e.target[1].value
+      let location = e.target[2].value
+      let images = e.target[3].value
+      let price = e.target[4].value
+      let tag = e.target[5].value
+      console.log(name, description, location, images, price)
+      console.log(current_user.id)
+      
+      fetch(ITEMS_URL, {
+        method: 'POST',
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({name, description, location, images, price, user_id: current_user.id, tag})
+      }).then(r => r.json())
+      .then(item => {
+        let newItem = new Item(item);
+            contentContainer.innerHTML += newItem.renderItem();
+            debugger
+            ITEMS_ARRAY.push(newItem);
+            $('#new-item').modal('toggle');
+        })
+    
     })
 
     contentContainer.addEventListener('click', e => {
