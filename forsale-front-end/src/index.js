@@ -6,7 +6,7 @@ const ITEMS_URL = 'http://localhost:3000/api/v1/items';
 const USERS_URL = 'http://localhost:3000/api/v1/users';
 const COMMENTS_URL = 'http://localhost:3000/api/v1/comments';
 let ITEMS_ARRAY = [];
-let current_user = '';
+let current_user = new User({});
 
 function init() {
     fetchItems();
@@ -26,20 +26,17 @@ function fetchItems() {
 
     })
 }
-    
-//infinite scroll
+
 function initEvents() {
-    contentContainer.addEventListener('scroll', e => {
-    });
+    //infinite scroll
+    // contentContainer.addEventListener('scroll', e => {
+    // });
 
     document.getElementsByClassName('form-control mr-sm-2')[0].addEventListener('input', e => {
         let allCards = document.getElementsByClassName('card mb-3');
 
         for(let card of allCards) {
-            if (card.getElementsByTagName('span')[0].innerText.includes(e.target.value))
-                card.style.display = '';
-            else
-                card.style.display = 'none';
+            card.style.display = (card.getElementsByTagName('span')[0].innerText.includes(e.target.value)) ? '' : 'none';
         }
     })
 
@@ -56,15 +53,17 @@ function initEvents() {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify({username, email})
-        }).then(r => r.json())
+        })
+        .then(r => r.json())
         .then(user => {
             current_user = new User(user);
-            navBar.getElementsByClassName('navbar-nav mr-auto')[0].children[3].style.display = 'none';
             //prepend the success alert to the top
-            document.querySelector('body').prepend(current_user.success())
+            document.querySelector('body').prepend(current_user.toastMsg(`Welcome ${current_user.username}! You have successfully logged in.`))
             //unfortunately have to use jquery to close the login modal and show toast
             $('#sign-in').modal('hide');
             $('.toast').toast('show');
+            //show add page and user show page to navbar
+            current_user.loggedIn(navBar.getElementsByClassName('navbar-nav mr-auto')[0]);
         })
     })
 
@@ -100,21 +99,23 @@ function initEvents() {
 
     contentContainer.addEventListener('click', e => {
         if (e.target.id === 'add-comment') {
-            if (current_user !== '') {
+            if (current_user.username !== '') {
                 //logged in so let's show a form to add comment
-                e.target.parentElement.previousElementSibling.style.display = "";
+                let addCommentForm = e.target.parentElement.previousElementSibling
+                addCommentForm.style.display = "";
                 //possibly change the button to submit comment
                 e.target.innerText = 'Submit'
                 setTimeout(() => {
                     e.target.id = 'submit-comment';
-                }, 5000);
+                }, 3000);
             } else {
                 //alert to log in to add a comment
+                document.querySelector('body').prepend(current_user.toastMsg('You need to login to comment!'))
+                $('.toast').toast('show');
             }
         }
 
         if(e.target.id === 'submit-comment') {
-            debugger
             let comment = e.target.parentElement.previousElementSibling.firstElementChild[0].value;
             let item_id = e.target.offsetParent.parentElement.parentElement.id.split('-')[2];
             fetch(COMMENTS_URL, {
@@ -127,8 +128,11 @@ function initEvents() {
             })
             .then(r => r.json())
             .then(comment => {
-                //render on dom
-                
+                //render on dom and change submit button to add comment and get rid of textfield
+
+                setTimeout(() => {
+                    e.target.id = 'add-comment';
+                }, 3000);
             })
             .catch(console.log(err))
         }
