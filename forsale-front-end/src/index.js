@@ -68,8 +68,8 @@ function initEvents() {
     })
 
     newItemForm.addEventListener('submit', e => { 
-
       e.preventDefault();
+
       let name = e.target[0].value
       let description = e.target[1].value
       let location = e.target[2].value
@@ -78,6 +78,8 @@ function initEvents() {
       let tag = e.target[5].value
       console.log(name, description, location, images, price)
       console.log(current_user.id)
+
+      //add conditional for if any of those spots are blank
       
       fetch(ITEMS_URL, {
         method: 'POST',
@@ -88,7 +90,7 @@ function initEvents() {
         body: JSON.stringify({name, description, location, images, price, user_id: current_user.id, tag})
       }).then(r => r.json())
       .then(item => {
-        let newItem = new Item(item);
+            let newItem = new Item(item);
             contentContainer.innerHTML += newItem.renderItem();
             debugger
             ITEMS_ARRAY.push(newItem);
@@ -111,6 +113,7 @@ function initEvents() {
             } else {
                 //alert to log in to add a comment
                 document.querySelector('body').prepend(current_user.toastMsg('You need to login to comment!'))
+                console.log('TOAST PLS')
                 $('.toast').toast('show');
             }
         }
