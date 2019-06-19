@@ -79,12 +79,6 @@ class Item {
         `
     }
 
-    // addImages() {
-    //     let allImages = '';
-    //     this.images.forEach(image => allImages += `<img class='img-item' src='${image}'> `)
-    //         return allImages;
-    // }
-
     addTags() {
         let allTags = '';
         this.tags.forEach(tag => allTags += `${tag.name}`);

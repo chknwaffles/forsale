@@ -6,6 +6,7 @@ const ITEMS_URL = 'http://localhost:3000/api/v1/items';
 const USERS_URL = 'http://localhost:3000/api/v1/users';
 const COMMENTS_URL = 'http://localhost:3000/api/v1/comments';
 let ITEMS_ARRAY = [];
+let ITEMS_LOADED = 0;
 let current_user = new User({});
 
 function init() {
@@ -19,18 +20,17 @@ function fetchItems() {
     .then(items => {
         items.forEach(item => {
             let newItem = new Item(item);
-            contentContainer.innerHTML += newItem.renderItem();
+            if (ITEMS_LOADED < 8) {
+                contentContainer.innerHTML += newItem.renderItem();
+                ITEMS_LOADED++;
+            }
             ITEMS_ARRAY.push(newItem);
         })
-
     })
 }
 
 function initEvents() {
-    //infinite scroll
-    // contentContainer.addEventListener('scroll', e => {
-    // });
-
+    //listen for search tag filter
     document.getElementsByClassName('form-control mr-sm-2')[0].addEventListener('input', e => {
         let allCards = document.getElementsByClassName('card mb-3');
 
@@ -91,64 +91,101 @@ function initEvents() {
       .then(item => {
             let newItem = new Item(item);
             contentContainer.innerHTML += newItem.renderItem();
-            debugger
             ITEMS_ARRAY.push(newItem);
             $('#new-item').modal('toggle');
         })
-    
     })
 
-    contentContainer.addEventListener('click', e => {
-        if (e.target.id === 'add-comment') {
-            if (current_user.username !== '') {
-                //logged in so let's show a form to add comment
-                let addCommentForm = e.target.parentElement.previousElementSibling
-                addCommentForm.style.display = "";
-                //possibly change the button to submit comment
-                e.target.innerText = 'Submit'
-                setTimeout(() => {
-                    e.target.id = 'submit-comment';
-                }, 500);
-            } else {
-                //alert to log in to add a comment
-                document.querySelector('body').prepend(current_user.toastMsg('You need to login to comment!'))
-                $('.toast').toast('show');
+    document.querySelector('body').addEventListener('click', e => {
+        switch(e.target.id) {
+            case 'load-more': {
+                loadMoreItems(e);
+                showToTheTopButton();
+                break;
             }
-        }
-
-        if(e.target.id === 'submit-comment') {
-            let comment = e.target.parentElement.previousElementSibling.firstElementChild[0].value;
-            let item_id = e.target.offsetParent.parentElement.parentElement.id.split('-')[2];
-            fetch(COMMENTS_URL, {
-                method: 'POST',
-                headers: {
-                    'Accept': 'application/json',
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({ body: comment, item_id: item_id, user_id: current_user.id })
-            })
-            .then(r => r.json())
-            .then(comment => {
-                //render on dom and change submit button to add comment and get rid of textfield
-                let newComment = new Comment(comment);
-                e.target.offsetParent.getElementsByClassName('list-group')[0].innerHTML += newComment.renderComment();
-
-                //set button to add comment and hide text field
-                let commentForm = e.target.parentElement.previousElementSibling
-                commentForm.style.display = 'none';
-                commentForm.firstElementChild.reset();
-                e.target.innerText = 'Add Comment'
-                setTimeout(() => {
-                    e.target.id = 'add-comment';
-                }, 500);
-            })
-            .catch(console.log())
+            case 'add-comment': {
+                addComment(e);
+                break;
+            }
+            case 'submit-comment': {
+                submitComment(e);
+                break;
+            }
         }
     })
 }
 
 function findItem(id) {
     return ITEMS_ARRAY.find(item => item.id === +id);
+}
+
+function loadMoreItems(e) {
+    //only load 4 more items at a time
+    let count = 7;
+    if (ITEMS_LOADED === ITEMS_ARRAY.length) {
+        e.target.innerText = 'End of List';
+        e.target.disabled = true;
+    } else {
+        ITEMS_ARRAY.forEach(item => {
+            if (item.id > ITEMS_LOADED && count >= 0) {
+                let newItem = new Item(item);
+                contentContainer.innerHTML += newItem.renderItem();
+      
+                ITEMS_LOADED++;
+                count--;
+            }
+        })
+    }
+}
+
+function showToTheTopButton() {
+
+}
+
+function addComment(e) {
+    if (current_user.username !== '') {
+        //logged in so let's show a form to add comment
+        let addCommentForm = e.target.parentElement.previousElementSibling
+        addCommentForm.style.display = "";
+        //possibly change the button to submit comment
+        e.target.innerText = 'Submit'
+        setTimeout(() => {
+            e.target.id = 'submit-comment';
+        }, 500);
+    } else {
+        //alert to log in to add a comment
+        document.querySelector('body').prepend(current_user.toastMsg('You need to login to comment!'))
+        $('.toast').toast('show');
+    }
+}
+
+function submitComment(e) {
+    let comment = e.target.parentElement.previousElementSibling.firstElementChild[0].value;
+    let item_id = e.target.offsetParent.parentElement.parentElement.id.split('-')[2];
+    fetch(COMMENTS_URL, {
+        method: 'POST',
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ body: comment, item_id: item_id, user_id: current_user.id })
+    })
+    .then(r => r.json())
+    .then(comment => {
+        //render on dom and change submit button to add comment and get rid of textfield
+        let newComment = new Comment(comment);
+        e.target.offsetParent.getElementsByClassName('list-group')[0].innerHTML += newComment.renderComment();
+
+        //set button to add comment and hide text field
+        let commentForm = e.target.parentElement.previousElementSibling
+        commentForm.style.display = 'none';
+        commentForm.firstElementChild.reset();
+        e.target.innerText = 'Add Comment'
+        setTimeout(() => {
+            e.target.id = 'add-comment';
+        }, 500);
+    })
+    .catch(console.log())
 }
 
 init();
