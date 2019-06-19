@@ -36,3 +36,8 @@ body {
 .toast {
     z-index: 9999999999;
 }
+
+#load-more {
+    position: absolute;
+    right: 45%;
+}
