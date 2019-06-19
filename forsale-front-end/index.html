@@ -24,7 +24,7 @@
             <a class="nav-link" data-id="home" href="#">Home <span class="sr-only">(current)</span></a>
             </li>
             <li class="nav-item">
-            <a class="nav-link" href="#">Add Items</a>
+            <a class="nav-link" href="#" class="card mb-3" data-target='#new-item' data-toggle='modal'>Add Items</a>
             </li>
             <li class="nav-item">
             <a class="nav-link" href="#">User Page</a>
@@ -64,9 +64,44 @@
                     </form> 
                 </div>
             </div>
+        </div>
+    </div>`
+</div>
+<div>
+        <div class="modal" id='new-item' tabindex='-1' role='dialog'>
+            <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+                <div id="new-item-card" class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Add a new item to forSale</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <form >
+                    <div class="modal-body">
+                             <label for="name">Item Name:</label><br>
+                             <input name="name" id="name"><br>
+                             <label for="desc">Description:</label><br>
+                             <input name="desc" id="desc"> <br>
+                             <label for="location">Location of sale:</label><br>
+                             <input name="location" id="location"> <br>
+                             <label for="images">Photos of the Item:</label><br>
+                             <input name="images" id="images"> <br>
+                             <label for="price">Asking Price:</label><br>
+                             <input name="price" id="price"> <br>
+                             <label for="tag">Tag</label><br>
+                             <input name="tag" id="tag">
+                            </div>
+                            <div class="modal-footer">
+                                <button type="submit" class="btn btn-primary"  id="new-item-submit">Add Item</button>
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            </div>
+                        <form> 
+                </div>
+            </div>
         </div>`
     </div>
-    <div class="jumbotron jumbotron-fluid"> </div>
+    <div class="jumbotron"> </div>
     <script defer src="src/user.js" charset="utf-8"></script>
     <script defer src="src/item.js" charset="utf-8"></script>
     <script defer src="src/tag.js" charset="utf-8"></script>
