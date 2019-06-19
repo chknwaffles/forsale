@@ -103,14 +103,9 @@ function initEvents() {
                 showToTheTopButton();
                 break;
             }
-            case 'add-comment': {
-                addComment(e);
-                break;
-            }
-            case 'submit-comment': {
-                submitComment(e);
-                break;
-            }
+            case 'add-comment': addComment(e); break;
+            case 'submit-comment': submitComment(e); break;
+            case 'delete-comment': deleteComment(e); break;
         }
     })
 }
@@ -131,7 +126,7 @@ function loadMoreItems(e) {
             count--;
         }
     })
-    
+
     if (ITEMS_LOADED === ITEMS_ARRAY.length) {
         e.target.innerText = 'End of List';
         e.target.disabled = true;
@@ -162,6 +157,7 @@ function addComment(e) {
 function submitComment(e) {
     let comment = e.target.parentElement.previousElementSibling.firstElementChild[0].value;
     let item_id = e.target.offsetParent.parentElement.parentElement.id.split('-')[2];
+
     fetch(COMMENTS_URL, {
         method: 'POST',
         headers: {
@@ -186,6 +182,15 @@ function submitComment(e) {
         }, 500);
     })
     .catch(console.log())
+}
+
+function deleteComment(e) {
+    let comment = e.target.parentElement
+    fetch(`${COMMENTS_URL}/${comment.id}`, {
+        method: 'DELETE',
+    })
+
+    comment.remove();
 }
 
 init();

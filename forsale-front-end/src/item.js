@@ -42,10 +42,10 @@ class Item {
                     <div class="modal-body">
                         <div class='container-fluid'>
                             <div class='row'>
-                                <div class="col-lg-9">
+                                <div class="col-md-9">
                                     <span class="badge badge-dark">${this.addTags()}</span>
                                     <div class="row">
-                                        <div class="col-8 col-sm-6">
+                                        <div class="col-8 col-md-6">
                                          <img class='img-item' src=${this.images}>
                                             <div class="card-body">
                                                 <p class="card-text">${this.description}</p>
@@ -87,7 +87,10 @@ class Item {
 
     addComments() {
         let allComments = '';
-        this.comments.forEach(comment => allComments += `<li> ${comment.body} - ${comment.user.username} </li>`);
+        this.comments.forEach(comment => {
+            let newComment = new Comment(comment);
+            allComments += newComment.renderComment();
+        })
         return allComments;
     }
 }
