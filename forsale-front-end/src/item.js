@@ -51,9 +51,7 @@ class Item {
                                                 <p class="card-text">${this.description}</p>
                                             </div>
                                             <div class="card-body">
-                                                <p> Fake Comment </p>
-                                                <p> Fake COmment 2 </p>
-                                                ${this.addComments()}
+                                                <ul class="list-group"> ${this.addComments()} </ul>
                                             </div>
                                         </div>
                                     </div>
@@ -95,7 +93,7 @@ class Item {
 
     addComments() {
         let allComments = '';
-        this.comments.forEach(comment => allComments += `<p> ${comment} </p>`);
+        this.comments.forEach(comment => allComments += `<li> ${comment} </li>`);
         return allComments;
     }
 }

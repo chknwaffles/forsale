@@ -26,9 +26,9 @@ class User {
 
     loggedIn(navBar) {
         //switch the signin and add item buttons
-        let signIn = navBarItems.children[0];
-        let addItem = navBarItems.children[1];
-        navBarItems.insertBefore(addItem, signIn);
+        let signIn = navBar.children[0];
+        let addItem = navBar.children[1];
+        navBar.insertBefore(addItem, signIn);
         addItem.style.display = '';
         signIn.style.display = 'none';
     }
