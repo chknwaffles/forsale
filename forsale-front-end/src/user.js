@@ -9,7 +9,7 @@ class User {
         let toast = document.createElement('div');
         toast.innerHTML = `
         <div class='position-absolute d-flex flex-lg-column pt-5 mt-5'>
-            <div role="alert" aria-live="assertive" class="toast mx-auto show" data-autohide="false" data-animation='true'>
+            <div role="alert" aria-live="assertive" class="toast mx-auto show" data-autohide="true" data-delay='1000' data-animation='true'>
                 <div class="toast-header">
                     <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
