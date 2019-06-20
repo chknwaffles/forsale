@@ -12,9 +12,7 @@ body {
     overflow: auto;
 }
 
-.card mb-3 {
-    text-align: center;
-    width: 200px;
+.card {
     cursor: pointer;
 }
 
@@ -35,4 +33,15 @@ body {
 
 .toast {
     z-index: 9999999999;
+}
+
+#load-more {
+    position: absolute;
+    right: 45%;
+}
+
+#back-to-top {
+    position: sticky;
+    cursor: pointer;
+    left: 100%;
 }
