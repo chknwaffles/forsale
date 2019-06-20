@@ -7,6 +7,7 @@ const USERS_URL = 'http://localhost:3000/api/v1/users';
 const COMMENTS_URL = 'http://localhost:3000/api/v1/comments';
 let ITEMS_ARRAY = [];
 let ITEMS_LOADED = 0;
+let SEARCH_FILTER = 'tag';
 let current_user = new User({});
 let today = new Date();
 
@@ -38,9 +39,13 @@ function initEvents() {
     //listen for search tag filter
     document.getElementsByClassName('form-control mr-sm-2')[0].addEventListener('input', e => {
         let allCards = document.getElementsByClassName('card mb-3');
-
+        
         for(let card of allCards) {
-            card.style.display = (card.getElementsByTagName('span')[0].innerText.includes(e.target.value)) ? '' : 'none';
+            if (SEARCH_FILTER === 'tag') {
+                card.style.display = (card.getElementsByTagName('span')[0].innerText.includes(e.target.value)) ? '' : 'none';
+            } else if (SEARCH_FILTER === 'name') {
+                card.style.display = (card.getElementsByTagName('h3')[0].innerHTML.split('<br>')[0].toLowerCase().includes(e.target.value)) ? '' : 'none';
+            }          
         }
     })
 
@@ -113,20 +118,21 @@ function initEvents() {
             case 'submit-comment': submitComment(e); break;
             case 'delete-comment': deleteComment(e); break;
             case 'back-to-top': scrollToTop(); break;
+            case 'filter-search': changeSearchFilter(e); break;
         }
 
         if(e.target.id === 'delete-item'){
             
-          fetch(ITEMS_URL + '/' + e.target.dataset.id, {
-            method: 'DELETE'
-          })
-          ITEMS_ARRAY.splice(ITEMS_ARRAY.findIndex(item => item. id === parseInt(e.target.dataset.id)) , 1)
-          $(`#modal-item-${e.target.dataset.id}`).modal('hide');
-          contentContainer.innerHTML = ""
-          ITEMS_ARRAY.forEach(item => {
-            contentContainer.innerHTML += item.renderItem();
-        })
+            fetch(ITEMS_URL + '/' + e.target.dataset.id, {
+                method: 'DELETE'
+            })
 
+            ITEMS_ARRAY.splice(ITEMS_ARRAY.findIndex(item => item. id === parseInt(e.target.dataset.id)) , 1)
+            $(`#modal-item-${e.target.dataset.id}`).modal('hide');
+            contentContainer.innerHTML = ""
+            ITEMS_ARRAY.forEach(item => {
+                contentContainer.innerHTML += item.renderItem();
+            })
         }
     })
 }
@@ -224,4 +230,13 @@ function scrollToTop() {
 	}
 }
 
+function changeSearchFilter(e) {
+    if (SEARCH_FILTER === 'tag') {
+        SEARCH_FILTER = 'name';
+        e.target.previousElementSibling.placeholder = 'Search by Item Name';
+    } else {
+        SEARCH_FILTER = 'tag';
+        e.target.previousElementSibling.placeholder = 'Search by Tag';
+    }
+}
 init();

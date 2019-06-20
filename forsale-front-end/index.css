@@ -45,3 +45,10 @@ body {
     cursor: pointer;
     left: 100%;
 }
+
+#filter-search {
+    background: url('https://i.warosu.org/data/g/img/0649/17/1519897514760.png');
+    height: 45px;
+    width: 45px;
+    color: #000000;
+}
