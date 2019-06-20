@@ -106,7 +106,7 @@ class Item {
 
         if(current_user.id === this.user.id){
             console.log("match")
-            return `<button type="button" class="btn btn-primary btn-sm" data-id="${this.id}-delete" id='delete-item'>Delete Item</button>`
+            return `<button type="button" class="btn btn-primary btn-sm" data-id="${this.id}"  id='delete-item'>Delete Item</button>`
         }
         return ``
     }
