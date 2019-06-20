@@ -1,5 +1,5 @@
 class Item {
-    constructor({id, name, description, location, images, user, comments, tags, created_at}) {
+    constructor({id, name, description, location, images, user, comments, tags, created_at, price}) {
         this.id = id;
         this.name = name;
         this.description = description
@@ -9,12 +9,14 @@ class Item {
         this.comments = comments;
         this.tags = tags;
         this.created_at = created_at;
+        this.price = price;
     }
 
     renderItem() {
         return `
         <div class="card mb-3" data-target='#modal-item-${this.id}' data-toggle='modal'>
-            <h3 class="card-header"> ${this.name} </h3>
+            <h3 class="card-header"> ${this.name} <br> $${this.price} </h3>
+           
             <div class="card-body">
                 <h5 class="card-title">From ${this.user.username}</h5>
                 <h6 class="card-subtitle text-muted">${this.location}</h6>
