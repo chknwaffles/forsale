@@ -15,7 +15,7 @@ class Item {
     renderItem() {
         return `
         <div class="card mb-3" data-target='#modal-item-${this.id}' data-toggle='modal'>
-            <h3 class="card-header"> ${this.name} <br> $${this.price} </h3>
+            <h3 class="card-header"> ${this.name} <br> <small class='text-muted'>$${this.price}</small> </h3>
            
             <div class="card-body">
                 <h5 class="card-title">From ${this.user.username}</h5>
@@ -37,7 +37,7 @@ class Item {
             <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title">${this.name}</h5>
+                        <h5 class="modal-title">${this.name} - $${this.price}</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
