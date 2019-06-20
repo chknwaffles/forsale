@@ -1,5 +1,5 @@
 class Item {
-    constructor({id, name, description, location, images, user, comments, tags}) {
+    constructor({id, name, description, location, images, user, comments, tags, created_at}) {
         this.id = id;
         this.name = name;
         this.description = description
@@ -8,6 +8,7 @@ class Item {
         this.user = user;
         this.comments = comments;
         this.tags = tags;
+        this.created_at = created_at;
     }
 
     renderItem() {
@@ -21,7 +22,7 @@ class Item {
             </div>
             <img class='item-image' src="${this.images}" alt="Card image">
             <div class="card-footer text-muted">
-                Add timestamp
+                ${this.renderTimeStamp()}
             </div>
         </div>
         ${this.renderModalItem()}
@@ -92,5 +93,19 @@ class Item {
             allComments += newComment.renderComment();
         })
         return allComments;
+    }
+    renderTimeStamp(){
+       
+
+        let createdDateArr = this.created_at.slice(0, 10).split("-").map(num => parseInt(num))
+        let createdDate = new Date(createdDateArr[0], createdDateArr[1]-1, createdDateArr[2])
+        let days = Math.round((today-createdDate)/(1000*60*60*24))
+        if (days === 0){
+            return `Posted today`
+        }
+        else {
+            return `Posted ${days} ${(days===1 ? `day ago` : "days ago")}`;
+        }
+       
     }
 }
