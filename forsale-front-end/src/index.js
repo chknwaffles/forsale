@@ -1,7 +1,7 @@
-let contentContainer = document.getElementsByClassName('jumbotron')[0];
-let navBar =document.getElementById('nav-bar');
-let signInForm = document.getElementById('sign-in-form')
-let newItemForm = document.getElementById('new-item-card')
+const contentContainer = document.getElementsByClassName('jumbotron')[0];
+const navBar =document.getElementById('nav-bar');
+const signInForm = document.getElementById('sign-in-form')
+const newItemForm = document.getElementById('new-item-card')
 const ITEMS_URL = 'http://localhost:3000/api/v1/items';
 const USERS_URL = 'http://localhost:3000/api/v1/users';
 const COMMENTS_URL = 'http://localhost:3000/api/v1/comments';
@@ -57,7 +57,7 @@ function initEvents() {
         .then(user => {
             current_user = new User(user);
             //prepend the success alert to the top
-            document.querySelector('body').prepend(current_user.toastMsg(`Welcome ${current_user.username}! You have successfully logged in.`))
+            document.body.prepend(current_user.toastMsg(`Welcome ${current_user.username}! You have successfully logged in.`))
             //unfortunately have to use jquery to close the login modal and show toast
             $('#sign-in').modal('hide');
             $('.toast').toast('show');
@@ -96,16 +96,13 @@ function initEvents() {
         })
     })
 
-    document.querySelector('body').addEventListener('click', e => {
+    document.body.addEventListener('click', e => {
         switch(e.target.id) {
-            case 'load-more': {
-                loadMoreItems(e);
-                showToTheTopButton();
-                break;
-            }
+            case 'load-more': loadMoreItems(e); break;
             case 'add-comment': addComment(e); break;
             case 'submit-comment': submitComment(e); break;
             case 'delete-comment': deleteComment(e); break;
+            case 'back-to-top': scrollToTop(); break;
         }
     })
 }
@@ -133,10 +130,6 @@ function loadMoreItems(e) {
     } 
 }
 
-function showToTheTopButton() {
-
-}
-
 function addComment(e) {
     if (current_user.username !== '') {
         //logged in so let's show a form to add comment
@@ -149,8 +142,7 @@ function addComment(e) {
         }, 500);
     } else {
         //alert to log in to add a comment
-        document.querySelector('body').prepend(current_user.toastMsg('You need to login to comment!'))
-        $('.toast').toast('show');
+        alert('You must be logged in to comment.')
     }
 }
 
@@ -186,11 +178,26 @@ function submitComment(e) {
 
 function deleteComment(e) {
     let comment = e.target.parentElement
-    fetch(`${COMMENTS_URL}/${comment.id}`, {
-        method: 'DELETE',
-    })
 
-    comment.remove();
+    if (+comment.dataset.userId === current_user.id) {
+        let confirmDel = confirm('Are you sure you want to delete this comment?');
+        if (confirmDel) {
+            fetch(`${COMMENTS_URL}/${comment.id}`, {
+                method: 'DELETE',
+            })
+        
+            comment.remove();
+        }
+    } else {
+        alert('You cannot delete this comment!');
+    }
+}
+
+function scrollToTop() {
+    if (document.body.scrollTop != 0 || document.documentElement.scrollTop != 0) {
+		window.scrollBy(0,-50);
+		requestAnimationFrame(scrollToTop);
+	}
 }
 
 init();
