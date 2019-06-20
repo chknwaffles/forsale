@@ -2,6 +2,7 @@ let contentContainer = document.getElementsByClassName('jumbotron')[0];
 let navBar =document.getElementById('nav-bar');
 let signInForm = document.getElementById('sign-in-form')
 let newItemForm = document.getElementById('new-item-form')
+let userShowPage = document.getElementById('user-showpage')
 const ITEMS_URL = 'http://localhost:3000/api/v1/items';
 const USERS_URL = 'http://localhost:3000/api/v1/users';
 const COMMENTS_URL = 'http://localhost:3000/api/v1/comments';
@@ -11,9 +12,6 @@ let SEARCH_FILTER = 'tag';
 let current_user = new User({});
 let today = new Date();
 
-console.log(today)
-
-console.log(newItemForm)
 
 function init() {
     fetchItems();
@@ -77,7 +75,9 @@ function initEvents() {
             ITEMS_ARRAY.forEach(item => {
               contentContainer.innerHTML += item.renderItem();
           })
+            userShowPage.innerHTML = current_user.renderShowPage();
         })
+
     })
 
     newItemForm.addEventListener('submit', e => { 
@@ -106,8 +106,12 @@ function initEvents() {
             contentContainer.innerHTML += newItem.renderItem();
             
             ITEMS_ARRAY.push(newItem);
+            console.log(newItem)
             $('#new-item').modal('toggle');
+            userShowPage.innerHTML = current_user.renderShowPage();
         })
+        
+        
         newItemForm.reset();
     })
 
@@ -118,22 +122,11 @@ function initEvents() {
             case 'submit-comment': submitComment(e); break;
             case 'delete-comment': deleteComment(e); break;
             case 'back-to-top': scrollToTop(); break;
+            case 'delete-item': deleteItem(e); break;
             case 'filter-search': changeSearchFilter(e); break;
         }
 
-        if(e.target.id === 'delete-item'){
-            
-            fetch(ITEMS_URL + '/' + e.target.dataset.id, {
-                method: 'DELETE'
-            })
-
-            ITEMS_ARRAY.splice(ITEMS_ARRAY.findIndex(item => item. id === parseInt(e.target.dataset.id)) , 1)
-            $(`#modal-item-${e.target.dataset.id}`).modal('hide');
-            contentContainer.innerHTML = ""
-            ITEMS_ARRAY.forEach(item => {
-                contentContainer.innerHTML += item.renderItem();
-            })
-        }
+        
     })
 }
 
@@ -228,6 +221,19 @@ function scrollToTop() {
 		window.scrollBy(0,-50);
 		requestAnimationFrame(scrollToTop);
 	}
+}
+
+function deleteItem(e){
+    fetch(ITEMS_URL + '/' + e.target.dataset.id, {
+        method: 'DELETE'
+      })
+      ITEMS_ARRAY.splice(ITEMS_ARRAY.findIndex(item => item. id === parseInt(e.target.dataset.id)) , 1)
+      $(`#modal-item-${e.target.dataset.id}`).modal('hide');
+      contentContainer.innerHTML = ""
+      ITEMS_ARRAY.forEach(item => {
+        contentContainer.innerHTML += item.renderItem();
+    })
+    e.target.parentElement.remove()
 }
 
 function changeSearchFilter(e) {
