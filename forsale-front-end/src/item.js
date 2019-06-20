@@ -73,6 +73,7 @@ class Item {
                     </form>
                     </div>
                     <div class="modal-footer">
+                        ${this.deleteButton()}
                         <button type="button" class="btn btn-primary btn-sm" id='add-comment'>Add comment</button>
                         <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Close</button>
                     </div>
@@ -108,6 +109,16 @@ class Item {
         else {
             return `Posted ${days} ${(days===1 ? `day ago` : "days ago")}`;
         }
+    }
        
+    
+    deleteButton(){
+       
+
+        if(current_user.id === this.user.id){
+            console.log("match")
+            return `<button type="button" class="btn btn-primary btn-sm" data-id="${this.id}"  id='delete-item'>Delete Item</button>`
+        }
+        return ``
     }
 }

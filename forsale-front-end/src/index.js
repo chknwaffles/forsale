@@ -1,7 +1,7 @@
-const contentContainer = document.getElementsByClassName('jumbotron')[0];
-const navBar =document.getElementById('nav-bar');
-const signInForm = document.getElementById('sign-in-form')
-const newItemForm = document.getElementById('new-item-card')
+let contentContainer = document.getElementsByClassName('jumbotron')[0];
+let navBar =document.getElementById('nav-bar');
+let signInForm = document.getElementById('sign-in-form')
+let newItemForm = document.getElementById('new-item-form')
 const ITEMS_URL = 'http://localhost:3000/api/v1/items';
 const USERS_URL = 'http://localhost:3000/api/v1/users';
 const COMMENTS_URL = 'http://localhost:3000/api/v1/comments';
@@ -11,6 +11,8 @@ let current_user = new User({});
 let today = new Date();
 
 console.log(today)
+
+console.log(newItemForm)
 
 function init() {
     fetchItems();
@@ -66,20 +68,23 @@ function initEvents() {
             $('.toast').toast('show');
             //show add page and user show page to navbar
             current_user.loggedIn(navBar.getElementsByClassName('navbar-nav mr-auto')[0]);
+            contentContainer.innerHTML = ""
+            ITEMS_ARRAY.forEach(item => {
+              contentContainer.innerHTML += item.renderItem();
+          })
         })
     })
 
     newItemForm.addEventListener('submit', e => { 
       e.preventDefault();
-
+        
       let name = e.target[0].value
       let description = e.target[1].value
       let location = e.target[2].value
       let images = e.target[3].value
       let price = e.target[4].value
       let tag = e.target[5].value
-      console.log(name, description, location, images, price)
-      console.log(current_user.id)
+      
 
       //add conditional for if any of those spots are blank
       
@@ -94,9 +99,11 @@ function initEvents() {
       .then(item => {
             let newItem = new Item(item);
             contentContainer.innerHTML += newItem.renderItem();
+            
             ITEMS_ARRAY.push(newItem);
             $('#new-item').modal('toggle');
         })
+        newItemForm.reset();
     })
 
     document.body.addEventListener('click', e => {
@@ -106,6 +113,20 @@ function initEvents() {
             case 'submit-comment': submitComment(e); break;
             case 'delete-comment': deleteComment(e); break;
             case 'back-to-top': scrollToTop(); break;
+        }
+
+        if(e.target.id === 'delete-item'){
+            
+          fetch(ITEMS_URL + '/' + e.target.dataset.id, {
+            method: 'DELETE'
+          })
+          ITEMS_ARRAY.splice(ITEMS_ARRAY.findIndex(item => item. id === parseInt(e.target.dataset.id)) , 1)
+          $(`#modal-item-${e.target.dataset.id}`).modal('hide');
+          contentContainer.innerHTML = ""
+          ITEMS_ARRAY.forEach(item => {
+            contentContainer.innerHTML += item.renderItem();
+        })
+
         }
     })
 }

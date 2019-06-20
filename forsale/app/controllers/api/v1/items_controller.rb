@@ -13,10 +13,20 @@ class Api::V1::ItemsController < ApplicationController
         render json: @item
     end
 
+    def destroy
+        @item = find_item
+        @item.delete 
+        
+    end
+
 
     private
 
     def item_params
         params.require(:item).permit(:name, :description, :location, :images, :price, :user_id)
-      end
+    end
+
+    def find_item
+        Item.find{|item| item.id === params[:id].to_i}
+    end
 end
