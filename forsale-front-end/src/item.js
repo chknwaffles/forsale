@@ -35,7 +35,6 @@ class Item {
                 <div class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title">${this.name}</h5>
-                        ${this.deleteButton()}
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
@@ -71,7 +70,7 @@ class Item {
                     </form>
                     </div>
                     <div class="modal-footer">
-
+                        ${this.deleteButton()}
                         <button type="button" class="btn btn-primary btn-sm" id='add-comment'>Add comment</button>
                         <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Close</button>
                     </div>
