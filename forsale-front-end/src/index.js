@@ -90,9 +90,6 @@ function initEvents() {
       let price = e.target[4].value
       let tag = e.target[5].value
       
-
-      //add conditional for if any of those spots are blank
-      
       fetch(ITEMS_URL, {
         method: 'POST',
         headers: {
@@ -110,8 +107,6 @@ function initEvents() {
             $('#new-item').modal('toggle');
             userShowPage.innerHTML = current_user.renderShowPage();
         })
-        
-        
         newItemForm.reset();
     })
 
@@ -208,7 +203,6 @@ function deleteComment(e) {
             fetch(`${COMMENTS_URL}/${comment.id}`, {
                 method: 'DELETE',
             })
-        
             comment.remove();
         }
     } else {
@@ -224,16 +218,17 @@ function scrollToTop() {
 }
 
 function deleteItem(e){
-    fetch(ITEMS_URL + '/' + e.target.dataset.id, {
-        method: 'DELETE'
-      })
-      ITEMS_ARRAY.splice(ITEMS_ARRAY.findIndex(item => item. id === parseInt(e.target.dataset.id)) , 1)
-      $(`#modal-item-${e.target.dataset.id}`).modal('hide');
-      contentContainer.innerHTML = ""
-      ITEMS_ARRAY.forEach(item => {
-        contentContainer.innerHTML += item.renderItem();
-    })
-    e.target.parentElement.remove()
+    let confirmDel = confirm('Are you sure you want to delete this posting?');
+    if (confirmDel) {
+        fetch(ITEMS_URL + '/' + e.target.dataset.id, {
+            method: 'DELETE'
+        })
+        ITEMS_ARRAY.splice(ITEMS_ARRAY.findIndex(item => item.id === parseInt(e.target.dataset.id)), 1)
+        $(`#modal-item-${e.target.dataset.id}`).modal('hide');
+        contentContainer.innerHTML = ""
+        ITEMS_ARRAY.forEach(item => contentContainer.innerHTML += item.renderItem());
+        e.target.parentElement.remove()
+    }   
 }
 
 function changeSearchFilter(e) {
@@ -245,4 +240,5 @@ function changeSearchFilter(e) {
         e.target.previousElementSibling.placeholder = 'Search by Tag';
     }
 }
+
 init();
