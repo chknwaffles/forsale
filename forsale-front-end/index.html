@@ -26,6 +26,9 @@
             <li class="nav-item" style='display:none'>
             <a class="nav-link" href="#" class="card mb-3" data-target='#new-item' data-toggle='modal'>Add Items</a>
             </li>
+            <li class="nav-item" style='display:none'>
+                <a class="nav-link" href="#" class="card mb-3" data-target='#user-showpage' data-toggle='modal'>User Page</a>
+            </li>
         </ul>
         <form class="form-inline my-2 my-lg-0">
             <input class="form-control mr-sm-2" type="text" placeholder="Search by Tag">
@@ -46,20 +49,6 @@
                         </button>
                     </div>
                     <form id='new-item-form'>
-                        <!-- <div class="modal-body">
-                             <label for="name">Item Name:</label><br>
-                             <input name="name" id="name"><br>
-                             <label for="desc">Description:</label><br>
-                             <input name="desc" id="desc"> <br>
-                             <label for="location">Location of sale:</label><br>
-                             <input name="location" id="location"> <br>
-                             <label for="images">Photos of the Item:</label><br>
-                             <input name="images" id="images"> <br>
-                             <label for="price">Asking Price:</label><br>
-                             <input name="price" id="price"> <br>
-                             <label for="tag">Tag</label><br>
-                             <input name="tag" id="tag">
-                        </div> -->
                         <div class="form-group row">
                              <label for="name" class="col-sm-2 col-form-label">Item Name:</label>
                              <div class="col-sm-10"> <input name="name" class="form-control" id="name"> </div>
@@ -91,8 +80,11 @@
                     </form> 
                 </div>
             </div>
-        </div>
     </div>
+    <div class="modal" id='user-showpage' tabindex='-1' role='dialog'>
+        
+</div>
+   
     <div class="modal" id='sign-in' tabindex='-1' role='dialog'>
         <div class="modal-dialog modal-sm modal-dialog-centered" role="document">
             <div class="modal-content">

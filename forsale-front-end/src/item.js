@@ -100,9 +100,9 @@ class Item {
     renderTimeStamp(){
        
 
-        let createdDateArr = this.created_at.slice(0, 10).split("-").map(num => parseInt(num))
+        let createdDateArr = this.created_at.slice(0, 10).split("-").map(num => +num)
         let createdDate = new Date(createdDateArr[0], createdDateArr[1]-1, createdDateArr[2])
-        let days = Math.round((today-createdDate)/(1000*60*60*24))
+        let days = Math.floor((today-createdDate)/(1000*60*60*24))
         if (days === 0){
             return `Posted today`
         }
@@ -116,9 +116,11 @@ class Item {
        
 
         if(current_user.id === this.user.id){
-            console.log("match")
+            
             return `<button type="button" class="btn btn-primary btn-sm" data-id="${this.id}"  id='delete-item'>Delete Item</button>`
         }
         return ``
     }
+
+    
 }
