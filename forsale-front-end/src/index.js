@@ -8,6 +8,9 @@ const COMMENTS_URL = 'http://localhost:3000/api/v1/comments';
 let ITEMS_ARRAY = [];
 let ITEMS_LOADED = 0;
 let current_user = new User({});
+let today = new Date();
+
+console.log(today)
 
 console.log(newItemForm)
 

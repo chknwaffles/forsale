@@ -1,5 +1,5 @@
 class Item {
-    constructor({id, name, description, location, images, user, comments, tags}) {
+    constructor({id, name, description, location, images, user, comments, tags, created_at, price}) {
         this.id = id;
         this.name = name;
         this.description = description
@@ -8,12 +8,15 @@ class Item {
         this.user = user;
         this.comments = comments;
         this.tags = tags;
+        this.created_at = created_at;
+        this.price = price;
     }
 
     renderItem() {
         return `
         <div class="card mb-3" data-target='#modal-item-${this.id}' data-toggle='modal'>
-            <h3 class="card-header"> ${this.name} </h3>
+            <h3 class="card-header"> ${this.name} <br> $${this.price} </h3>
+           
             <div class="card-body">
                 <h5 class="card-title">From ${this.user.username}</h5>
                 <h6 class="card-subtitle text-muted">${this.location}</h6>
@@ -21,7 +24,7 @@ class Item {
             </div>
             <img class='item-image' src="${this.images}" alt="Card image">
             <div class="card-footer text-muted">
-                Add timestamp
+                ${this.renderTimeStamp()}
             </div>
         </div>
         ${this.renderModalItem()}
@@ -94,11 +97,23 @@ class Item {
         })
         return allComments;
     }
+    renderTimeStamp(){
+       
+
+        let createdDateArr = this.created_at.slice(0, 10).split("-").map(num => parseInt(num))
+        let createdDate = new Date(createdDateArr[0], createdDateArr[1]-1, createdDateArr[2])
+        let days = Math.round((today-createdDate)/(1000*60*60*24))
+        if (days === 0){
+            return `Posted today`
+        }
+        else {
+            return `Posted ${days} ${(days===1 ? `day ago` : "days ago")}`;
+        }
+    }
+       
     
     deleteButton(){
-        console.log("this", this)
-        console.log("current_user", current_user.id)
-        console.log("this.user.id", this.user.id)
+       
 
         if(current_user.id === this.user.id){
             console.log("match")
