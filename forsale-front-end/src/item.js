@@ -70,6 +70,7 @@ class Item {
                     </form>
                     </div>
                     <div class="modal-footer">
+                        ${this.deleteButton()}
                         <button type="button" class="btn btn-primary btn-sm" id='add-comment'>Add comment</button>
                         <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Close</button>
                     </div>
@@ -92,5 +93,17 @@ class Item {
             allComments += newComment.renderComment();
         })
         return allComments;
+    }
+    
+    deleteButton(){
+        console.log("this", this)
+        console.log("current_user", current_user.id)
+        console.log("this.user.id", this.user.id)
+
+        if(current_user.id === this.user.id){
+            console.log("match")
+            return `<button type="button" class="btn btn-primary btn-sm" data-id="${this.id}"  id='delete-item'>Delete Item</button>`
+        }
+        return ``
     }
 }
