@@ -1,14 +1,7 @@
-<<<<<<< HEAD
 let contentContainer = document.getElementsByClassName('jumbotron')[0];
 let navBar =document.getElementById('nav-bar');
 let signInForm = document.getElementById('sign-in-form')
 let newItemForm = document.getElementById('new-item-form')
-=======
-const contentContainer = document.getElementsByClassName('jumbotron')[0];
-const navBar =document.getElementById('nav-bar');
-const signInForm = document.getElementById('sign-in-form')
-const newItemForm = document.getElementById('new-item-card')
->>>>>>> master
 const ITEMS_URL = 'http://localhost:3000/api/v1/items';
 const USERS_URL = 'http://localhost:3000/api/v1/users';
 const COMMENTS_URL = 'http://localhost:3000/api/v1/comments';
@@ -103,17 +96,11 @@ function initEvents() {
       .then(item => {
             let newItem = new Item(item);
             contentContainer.innerHTML += newItem.renderItem();
-<<<<<<< HEAD
             
             ITEMS_ARRAY.push(newItem);
             $('#new-item').modal('toggle');
         })
         newItemForm.reset();
-=======
-            ITEMS_ARRAY.push(newItem);
-            $('#new-item').modal('toggle');
-        })
->>>>>>> master
     })
 
     document.body.addEventListener('click', e => {
