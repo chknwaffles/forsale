@@ -1,5 +1,7 @@
-# mod3-project
+# forSale, a craigslist alternative
 
-1. SPA
-2. Bootstrap
-3. other stuff
+1. Single page application 
+2. Ruby on Rails backend
+3. Frontend: Javascript, JQuery, Bootstrap, Pusher
+
+
