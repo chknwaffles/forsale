@@ -6,7 +6,6 @@ let userShowPage = document.getElementById('user-showpage')
 const ITEMS_URL = 'http://localhost:3000/api/v1/items';
 const USERS_URL = 'http://localhost:3000/api/v1/users';
 const COMMENTS_URL = 'http://localhost:3000/api/v1/comments';
-const channel = pusher.subscribe('comment-channel');
 let ITEMS_ARRAY = [];
 let ITEMS_LOADED = 0;
 let SEARCH_FILTER = 'tag';
@@ -73,11 +72,10 @@ function initEvents() {
             // $('.toast').toast('show');
             //show add page and user show page to navbar
             current_user.loggedIn(navBar.getElementsByClassName('navbar-nav mr-auto')[0]);
-            contentContainer.innerHTML = ""
-            ITEMS_ARRAY.forEach(item => {
-              contentContainer.innerHTML += item.renderItem();
-          })
+            contentContainer.innerHTML = Item.renderAllItems();
             userShowPage.innerHTML = current_user.renderShowPage();
+
+            const channel = pusher.subscribe('comment-channel');
         })
 
     })
@@ -191,6 +189,7 @@ function submitComment(e) {
             toastr.info(notification.message);
             toastr.clear();
             //need to rerender DOM again for all users that receive this message?
+
         })
         
     })
