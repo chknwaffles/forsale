@@ -6,12 +6,12 @@ let userShowPage = document.getElementById('user-showpage')
 const ITEMS_URL = 'http://localhost:3000/api/v1/items';
 const USERS_URL = 'http://localhost:3000/api/v1/users';
 const COMMENTS_URL = 'http://localhost:3000/api/v1/comments';
+const channel = pusher.subscribe('comment-channel');
 let ITEMS_ARRAY = [];
 let ITEMS_LOADED = 0;
 let SEARCH_FILTER = 'tag';
 let current_user = new User({});
 let today = new Date();
-
 
 function init() {
     fetchItems();
@@ -64,11 +64,13 @@ function initEvents() {
         .then(r => r.json())
         .then(user => {
             current_user = new User(user);
+            toastr.options.toastClass = 'toastr';
+            toastr.success('You have successfully logged in.', `Welcome ${current_user.username}!`)
             //prepend the success alert to the top
-            document.body.prepend(current_user.toastMsg(`Welcome ${current_user.username}! You have successfully logged in.`))
+            // document.body.prepend(current_user.toastMsg(`Welcome ${current_user.username}! You have successfully logged in.`))
             //unfortunately have to use jquery to close the login modal and show toast
             $('#sign-in').modal('hide');
-            $('.toast').toast('show');
+            // $('.toast').toast('show');
             //show add page and user show page to navbar
             current_user.loggedIn(navBar.getElementsByClassName('navbar-nav mr-auto')[0]);
             contentContainer.innerHTML = ""
@@ -103,7 +105,6 @@ function initEvents() {
             contentContainer.innerHTML += newItem.renderItem();
             
             ITEMS_ARRAY.push(newItem);
-            console.log(newItem)
             $('#new-item').modal('toggle');
             userShowPage.innerHTML = current_user.renderShowPage();
         })
@@ -120,13 +121,7 @@ function initEvents() {
             case 'delete-item': deleteItem(e); break;
             case 'filter-search': changeSearchFilter(e); break;
         }
-
-        
     })
-}
-
-function findItem(id) {
-    return ITEMS_ARRAY.find(item => item.id === +id);
 }
 
 function loadMoreItems(e) {
@@ -190,6 +185,14 @@ function submitComment(e) {
         setTimeout(() => {
             e.target.id = 'add-comment';
         }, 500);
+
+        // realtime notification
+        channel.bind('notify', notification => {
+            toastr.info(notification.message);
+            toastr.clear();
+            //need to rerender DOM again for all users that receive this message?
+        })
+        
     })
     .catch(console.log())
 }
@@ -204,6 +207,10 @@ function deleteComment(e) {
                 method: 'DELETE',
             })
             comment.remove();
+
+            //delete in item
+            let item = Item.findItem(comment.id);
+            item.comments.splice(item.comments.indexOf(comment), 1);
         }
     } else {
         alert('You cannot delete this comment!');
@@ -219,14 +226,17 @@ function scrollToTop() {
 
 function deleteItem(e){
     let confirmDel = confirm('Are you sure you want to delete this posting?');
+
     if (confirmDel) {
-        fetch(ITEMS_URL + '/' + e.target.dataset.id, {
+        fetch(`${ITEMS_URL}/${e.target.dataset.id}`, {
             method: 'DELETE'
         })
-        ITEMS_ARRAY.splice(ITEMS_ARRAY.findIndex(item => item.id === parseInt(e.target.dataset.id)), 1)
+
+        let item = Item.findItem(e.target.dataset.id);
+        
+        ITEMS_ARRAY.splice(ITEMS_ARRAY.findIndex(item => item.id === +e.target.dataset.id), 1)
         $(`#modal-item-${e.target.dataset.id}`).modal('hide');
-        contentContainer.innerHTML = ""
-        ITEMS_ARRAY.forEach(item => contentContainer.innerHTML += item.renderItem());
+        contentContainer.innerHTML = Item.renderAllItems();
         e.target.parentElement.remove()
     }   
 }

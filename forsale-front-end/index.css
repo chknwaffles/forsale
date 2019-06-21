@@ -51,3 +51,7 @@ body {
     height: 45px;
     width: 45px;
 }
+
+.toastr { 
+    top: 90px;  
+} 
