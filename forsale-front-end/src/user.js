@@ -34,44 +34,38 @@ class User {
         signIn.style.display = 'none';
         userShow.style.display = '';
     }
+
     renderShowPage(){
         return `
-        <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
-        <div  class="modal-content" id="user-showpage-card">
-                <div class="modal-header">
+            <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+                <div  class="modal-content" id="user-showpage-card">
+                    <div class="modal-header">
                         <h5 class="modal-title">${this.username}'s Page</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
-                    </div >
-                    <div  class="modal-body">
+                    </div>
+                    <div class="modal-body">
                         <div class='container-fluid'>
-                                <div class='row'>
-                                    <div class="col-md-9">
-                                    <ul class="list-group">
-                                    
-                                
-                                    ${this.renderUserItems()}
-                                    </ul>
-                                    </div>
-                                </div>
-                                <div class='row'>
-                                    <div class="col-md-4 ml-auto">
-                                        
-                                    </div>    
+                            <div class='row'>
+                                <div class="col-md-9">
+                                    <ul class="list-group"> ${this.renderUserItems()} </ul>
                                 </div>
                             </div>
+                            <div class='row'>
+                                <div class="col-md-4 ml-auto"></div>    
+                            </div>
                         </div>
-            
-            <div class="modal-footer">
-                 <button type="submit" class="btn btn-primary"  id="new-item-submit">Add Item</button>
-                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-primary"  id="new-item-submit">Add Item</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
             </div>
-            
-        </div>
-    </div>
-           `     
+        `     
     }
+    
     renderUserItems(){
         console.log("current user id", current_user.id)
        return ITEMS_ARRAY.map(item =>{

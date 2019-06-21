@@ -12,6 +12,14 @@ class Item {
         this.price = price;
     }
 
+    static findItem(id) {
+        return ITEMS_ARRAY.find(item => item.id === +id);
+    }
+
+    static renderAllItems() {
+        return ITEMS_ARRAY.map(item => item.renderItem()).join(' ');
+    }
+
     renderItem() {
         return `
         <div class="card mb-3" data-target='#modal-item-${this.id}' data-toggle='modal'>
@@ -97,30 +105,22 @@ class Item {
         })
         return allComments;
     }
-    renderTimeStamp(){
-       
 
+    renderTimeStamp() {
         let createdDateArr = this.created_at.slice(0, 10).split("-").map(num => +num)
         let createdDate = new Date(createdDateArr[0], createdDateArr[1]-1, createdDateArr[2])
         let days = Math.floor((today-createdDate)/(1000*60*60*24))
-        if (days === 0){
+
+        if (days === 0) {
             return `Posted today`
-        }
-        else {
-            return `Posted ${days} ${(days===1 ? `day ago` : "days ago")}`;
+        } else {
+            return `Posted ${days} ${(days === 1) ? `day ago` : "days ago"}`;
         }
     }
        
-    
-    deleteButton(){
-       
-
-        if(current_user.id === this.user.id){
-            
-            return `<button type="button" class="btn btn-primary btn-sm" data-id="${this.id}"  id='delete-item'>Delete Item</button>`
-        }
-        return ``
+    deleteButton() {
+        return (current_user.id === this.user.id) 
+            ? `<button type="button" class="btn btn-primary btn-sm" data-id="${this.id}"  id='delete-item'>Delete Item</button>` 
+            : '';
     }
-
-    
 }

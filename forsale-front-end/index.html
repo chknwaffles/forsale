@@ -1,14 +1,18 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta http-equiv="X-UA-Compatible" content="iAe=edge">
-  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js" integrity="sha384-xrRywqdh3PHs8keKZN+8zzc5TX0GRTLCcmivcbNJWm2rs5C8PRhcEn3czEjhAO9o" crossorigin="anonymous"></script>
-  <link rel="stylesheet" href="./index.css">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-  <title>forSale</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="X-UA-Compatible" content="iAe=edge">
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.js'></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js" integrity="sha384-xrRywqdh3PHs8keKZN+8zzc5TX0GRTLCcmivcbNJWm2rs5C8PRhcEn3czEjhAO9o" crossorigin="anonymous"></script>
+    <script src="https://js.pusher.com/4.4/pusher.min.js"></script>
+    <script src='src/pusher.js'></script>
+    <link rel="stylesheet" href="./index.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel='stylesheet' href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css"/>
+    <title>forSale</title>
 </head>
 <body>
     <link href="https://stackpath.bootstrapcdn.com/bootswatch/4.3.1/lux/bootstrap.min.css" rel="stylesheet" integrity="sha384-hVpXlpdRmJ+uXGwD5W6HZMnR9ENcKVRn855pPbuI/mwPIEKAuKgTKgGksVGmlAvt" crossorigin="anonymous">
@@ -19,25 +23,24 @@
         </button>
     
         <div class="collapse navbar-collapse" id="navbarColor01">
-        <ul class="navbar-nav mr-auto">
-            <li class="nav-item active">
-                <a class="nav-link" href="#" class="card mb-3" data-target='#sign-in' data-toggle='modal'>Sign In</a>
-            </li>
-            <li class="nav-item" style='display:none'>
-            <a class="nav-link" href="#" class="card mb-3" data-target='#new-item' data-toggle='modal'>Add Items</a>
-            </li>
-            <li class="nav-item" style='display:none'>
-                <a class="nav-link" href="#" class="card mb-3" data-target='#user-showpage' data-toggle='modal'>User Page</a>
-            </li>
-        </ul>
-        <form class="form-inline my-2 my-lg-0">
-            <input class="form-control mr-sm-2" type="text" placeholder="Search by Tag">
-            <button type='button' id='filter-search'></button>
-        </form>
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                    <a class="nav-link" href="#" class="card mb-3" data-target='#sign-in' data-toggle='modal'>Sign In</a>
+                </li>
+                <li class="nav-item" style='display:none'>
+                <a class="nav-link" href="#" class="card mb-3" data-target='#new-item' data-toggle='modal'>Add Items</a>
+                </li>
+                <li class="nav-item" style='display:none'>
+                    <a class="nav-link" href="#" class="card mb-3" data-target='#user-showpage' data-toggle='modal'>User Page</a>
+                </li>
+            </ul>
+            <form class="form-inline my-2 my-lg-0">
+                <input class="form-control mr-sm-2" type="text" placeholder="Search by Tag">
+                <button type='button' id='filter-search'></button>
+            </form>
         </div>
     </nav>
-    <div class="jumbotron jumbotron-fluid">
-    </div>
+    <div class="jumbotron jumbotron-fluid"> </div>
     <button type="button" class="btn btn-outline-primary" id='load-more'>Load More Items</button>
     <button type="button" class="btn btn-primary btn-sm" id='back-to-top'>Back to Top</button>
     <div class="modal" id='new-item' tabindex='-1' role='dialog'>
@@ -49,7 +52,6 @@
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
-
                     <form id='new-item-form'>
                         <div class="form-group row">
                              <label for="name" class="col-sm-2 col-form-label col-form-label-sm">Item Name:</label>
@@ -94,11 +96,9 @@
                     </form> 
                 </div>
             </div>
+        </div>
+        <div class="modal" id='user-showpage' tabindex='-1' role='dialog'>  
     </div>
-    <div class="modal" id='user-showpage' tabindex='-1' role='dialog'>
-        
-</div>
-   
     <div class="modal" id='sign-in' tabindex='-1' role='dialog'>
         <div class="modal-dialog modal-sm modal-dialog-centered" role="document">
             <div class="modal-content">
