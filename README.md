@@ -1,4 +1,4 @@
-# forSale, a craigslist alternative
+# forSale, a market web app
 
 1. Single page application 
 2. Ruby on Rails backend
